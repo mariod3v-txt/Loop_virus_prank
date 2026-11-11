@@ -1,57 +1,59 @@
+```markdown
 # VBA Office Macro — Security PoC
 
-> **Proof of Concept (PoC) para análise de segurança de macros VBA em ambiente controlado.**
+> **Proof of Concept (PoC) for VBA macro security analysis in a controlled environment.**
 
-## ⚠️ Aviso
+## ⚠️ Disclaimer
 
-Este projeto foi desenvolvido exclusivamente para **testes de segurança, aprendizado e validação em ambiente autorizado**.
+This project was developed exclusively for **security testing, learning, and validation in an authorized environment**.
 
-A PoC demonstra como uma macro VBA pode interagir com o sistema operacional e iniciar processos externos. Ela **não deve ser executada em computadores de terceiros ou em ambientes sem autorização**.
+The PoC demonstrates how a VBA macro can interact with the operating system and spawn external processes. It **must not be executed on third-party computers or in environments without authorization**.
 
-Recomenda-se utilizar uma **máquina virtual isolada** para reprodução dos testes.
+It is recommended to use an **isolated virtual machine** to replicate the tests.
 
 ---
 
-## 🎯 Objetivo
+## 🎯 Objective
 
-O objetivo desta PoC é demonstrar o potencial de abuso de macros VBA em documentos do Microsoft Office.
+The objective of this PoC is to demonstrate the potential abuse of VBA macros in Microsoft Office documents.
 
-Durante o teste, a macro demonstra uma cadeia simplificada:
+During the test, the macro demonstrates a simplified chain:
 
 ```text
 Microsoft Office
-       │
-       ▼
-     VBA
-       │
-       ├── Criação de arquivo .BAT
-       │
-       ├── Execução de processo externo
-       │
-       └── Execução de aplicações do Windows
+        │
+        ▼
+       VBA
+        │
+        ├── Creation of a .BAT file
+        │
+        ├── Execution of external process
+        │
+        └── Execution of Windows applications
+
 ```
 
-A finalidade é permitir que equipes de segurança avaliem controles preventivos e mecanismos de detecção relacionados à execução de macros.
+The purpose is to allow security teams to evaluate preventive controls and detection mechanisms related to macro execution.
 
 ---
 
-## 🧪 Funcionalidades da PoC
+## 🧪 PoC Features
 
-A implementação demonstra:
+The implementation demonstrates:
 
-* execução de uma macro VBA;
-* obtenção do diretório do usuário através do ambiente do Windows;
-* criação de um arquivo `.bat`;
-* escrita de comandos no arquivo criado;
-* execução do arquivo através do VBA;
-* inicialização de processos externos;
-* execução de comandos através do `Shell`;
-* geração de uma demonstração visual através de `UserForm`;
-* mecanismo de encerramento da demonstração.
+* Execution of a VBA macro;
+* Obtaining the user directory through the Windows environment;
+* Creation of a `.bat` file;
+* Writing commands to the created file;
+* Execution of the file via VBA;
+* Spawning external processes;
+* Executing commands via `Shell`;
+* Generating a visual demonstration via `UserForm`;
+* Termination mechanism for the demonstration.
 
 ---
 
-## 📂 Estrutura
+## 📂 Structure
 
 ```text
 .
@@ -61,131 +63,139 @@ A implementação demonstra:
     ├── macro.png
     ├── poc_execution.png
     └── process_tree.png
+
 ```
 
 ---
 
-## 🔬 Exemplo de fluxo
+## 🔬 Workflow Example
 
-A execução controlada pode ser representada da seguinte maneira:
+The controlled execution can be represented as follows:
 
 ```text
 Excel
   │
   ▼
-Macro VBA
+VBA Macro
   │
-  ├──────────────► UserForm / demonstração visual
+  ├──────────────► UserForm / visual demonstration
   │
-  ├──────────────► criação de POC.BAT
-  │                      │
-  │                      ▼
-  │                 processos do Windows
+  ├──────────────► Creation of POC.BAT
+  │                       │
+  │                       ▼
+  │               Windows processes
   │
-  └──────────────► processo externo
+  └──────────────► External process
+
 ```
 
 ---
 
-## 🛡️ Relevância para segurança
+## 🛡️ Security Relevance
 
-Macros VBA podem representar um vetor de ataque quando políticas de segurança permitem a execução de macros não confiáveis.
+VBA macros can represent an attack vector when security policies allow the execution of untrusted macros.
 
-Em um cenário real, um documento malicioso poderia utilizar técnicas semelhantes como etapa inicial de uma cadeia de ataque.
+In a real scenario, a malicious document could use similar techniques as the initial stage of an attack chain.
 
-O impacto real dependeria de fatores como:
+The actual impact would depend on factors such as:
 
-* políticas de execução de macros;
-* origem do documento;
-* privilégios do usuário;
-* controles de endpoint;
-* EDR/antivírus;
-* políticas de PowerShell;
-* segmentação de rede;
-* mecanismos de logging e monitoramento.
+* Macro execution policies;
+* Document origin;
+* User privileges;
+* Endpoint controls;
+* EDR/Antivirus;
+* PowerShell policies;
+* Network segmentation;
+* Logging and monitoring mechanisms.
 
-Esta PoC **não demonstra comprometimento completo de um endpoint**. Ela demonstra apenas a capacidade de execução e interação com o sistema operacional.
+This PoC **does not demonstrate full endpoint compromise**. It only demonstrates execution capability and interaction with the operating system.
 
 ---
 
-## 🧰 Ambiente recomendado
+## 🧰 Recommended Environment
 
-Para reprodução:
+To reproduce:
 
 ```text
 Windows 10/11
 Microsoft Office
-Máquina virtual
-Snapshot antes dos testes
-Ambiente autorizado
+Virtual Machine
+Snapshot prior to testing
+Authorized environment
+
 ```
 
-Recomenda-se manter a VM isolada e utilizar arquivos de teste.
+It is recommended to keep the VM isolated and use test files.
 
 ---
 
-## 📊 Evidências
+## 📊 Evidence
 
-Durante uma avaliação de segurança, recomenda-se registrar:
+During a security assessment, it is recommended to record:
 
-* configuração de segurança do Office;
-* comportamento apresentado ao abrir o documento;
-* processos criados;
-* relação entre processos pai/filho;
-* eventos registrados pelo Windows;
-* alertas gerados pelo EDR/antivírus;
-* arquivos criados pela PoC.
+* Office security configuration;
+* Behavior observed upon opening the document;
+* Created processes;
+* Parent/child process relationships;
+* Windows event logs;
+* Alerts generated by EDR/Antivirus;
+* Files created by the PoC.
 
-Exemplo de árvore de processos:
+Process tree example:
 
 ```text
 EXCEL.EXE
-    └── processo externo
+    └── external process
+
 ```
 
 ---
 
-## 🔐 Mitigações recomendadas
+## 🔐 Recommended Mitigations
 
-Como medidas defensivas, recomenda-se avaliar:
+As defensive measures, it is recommended to evaluate:
 
-1. Bloqueio de macros provenientes da Internet.
-2. Uso de macros assinadas digitalmente quando necessário.
-3. Restrição da execução de macros não confiáveis.
-4. Monitoramento de processos iniciados por aplicativos Office.
-5. Monitoramento de comportamentos anômalos envolvendo PowerShell e outros interpretadores.
-6. Princípio do menor privilégio.
-7. Atualização do Microsoft Office e do sistema operacional.
-8. Capacitação dos usuários para identificar documentos suspeitos.
-
----
-
-## ⚠️ Limitações
-
-Esta PoC foi desenvolvida para demonstrar um comportamento específico e **não representa um malware completo**.
-
-Não são objetivos deste projeto:
-
-* persistência;
-* evasão de antivírus/EDR;
-* roubo de credenciais;
-* exfiltração de dados;
-* criptografia de arquivos;
-* propagação pela rede;
-* comprometimento de outros dispositivos.
+1. Blocking macros originating from the Internet.
+2. Using digitally signed macros when necessary.
+3. Restricting the execution of untrusted macros.
+4. Monitoring processes spawned by Office applications.
+5. Monitoring anomalous behavior involving PowerShell and other interpreters.
+6. Principle of least privilege.
+7. Keeping Microsoft Office and the operating system updated.
+8. Training users to identify suspicious documents.
 
 ---
 
-## 📜 Uso responsável
+## ⚠️ Limitations
 
-Utilize este projeto somente em sistemas próprios ou em ambientes para os quais você tenha autorização explícita para realizar testes.
+This PoC was developed to demonstrate a specific behavior and **does not represent a full-fledged malware**.
 
-O autor não se responsabiliza pelo uso indevido deste material.
+The following are not goals of this project:
+
+* Persistence;
+* Antivirus/EDR evasion;
+* Credential harvesting;
+* Data exfiltration;
+* File encryption;
+* Network propagation;
+* Compromise of other devices.
 
 ---
 
-## 👤 Contexto
+## 📜 Responsible Use
 
-Projeto desenvolvido como estudo prático de **VBA, segurança de aplicações Office e análise de superfícies de ataque relacionadas a macros**.
+Use this project only on your own systems or in environments where you have explicit authorization to perform testing.
 
-A PoC foi desenvolvida com finalidade educacional e de validação de controles de segurança.
+The author assumes no responsibility for the misuse of this material.
+
+---
+
+## 👤 Context
+
+Project developed as a practical study of **VBA, Office application security, and attack surface analysis related to macros**.
+
+The PoC was created for educational purposes and security control validation.
+
+```
+
+```
